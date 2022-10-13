@@ -1,12 +1,18 @@
-import { useState } from 'react'
-import Charts from '@/pages/Charts'
+import { useState, Suspense } from 'react'
+import { useRoutes } from 'react-router-dom'
+import route from '@/route';
+import Loading from '@/components/Loading';
 
 function App() {
   const [count, setCount] = useState(0)
+  const element = useRoutes(route)
 
   return (
     <div className="App">
-      <Charts/>
+      <Loading />
+      <Suspense fallback={<Loading />}>
+        {element}
+      </Suspense>
     </div>
   )
 }
