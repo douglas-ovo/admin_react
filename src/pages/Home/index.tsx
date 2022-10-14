@@ -1,5 +1,8 @@
 import React, { FC, useRef, useEffect } from 'react'
+import { Outlet } from 'react-router-dom'
 import style from './index.module.less'
+import Header from '@/components/Header'
+import Menu from '@/components/Menu'
 
 const Home: FC<{}> = () => {
     const renderRef = useRef(true)
@@ -13,8 +16,12 @@ const Home: FC<{}> = () => {
     }, [])
 
     return (
-        <div className={style.chart}>
-            首页
+        <div className={style.home}>
+            <Header />
+            <div className={style['main']}>
+                <Menu />
+                <Outlet />
+            </div>
         </div>
     )
 }
