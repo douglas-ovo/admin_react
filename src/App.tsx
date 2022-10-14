@@ -9,7 +9,6 @@ function App() {
 
   return (
     <div className="App">
-      <Loading />
       <Suspense fallback={<Loading />}>
         {element}
       </Suspense>
