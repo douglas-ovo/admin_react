@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from '@/store'
 import App from './App'
+// import 'antd/dist/antd.less'
 import '@/assets/css/reset.less'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

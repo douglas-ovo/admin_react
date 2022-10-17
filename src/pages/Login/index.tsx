@@ -1,15 +1,17 @@
+// import { useAppSelector, useAppDispatch } from '@/store/hook'
+// import type { RootState } from '@/store'
+// import { decrement1, incrementAsync, increment1, incrementx } from '@/store/couter'
+// import { changeFlag, changeFlagAsync } from '@/store/flag'
 import React, { FC, useRef, useEffect } from 'react'
 import style from './index.module.less'
-import { useAppSelector, useAppDispatch } from '@/store/hook'
-import type { RootState } from '@/store'
-import { decrement1, incrementAsync, increment1, incrementx } from '@/store/couter'
-import { changeFlag, changeFlagAsync } from '@/store/flag'
+import { Button } from 'antd'
 
 const Login: FC<{}> = () => {
+    // const counter = useAppSelector((state: RootState) => state.counter.value)
+    // const flag = useAppSelector((state: RootState) => state.flag.value)
+    // const dispatch = useAppDispatch()
+
     const renderRef = useRef(true)
-    const counter = useAppSelector((state: RootState) => state.counter.value)
-    const flag = useAppSelector((state: RootState) => state.flag.value)
-    const dispatch = useAppDispatch()
 
     useEffect(() => {
         if (renderRef.current) { //防止钩子执行两次
@@ -22,6 +24,7 @@ const Login: FC<{}> = () => {
     return (
         <div className={style.chart}>
             <h2>登录</h2>
+            <Button>antd按钮</Button>
             {/* <hr />
             <h3>counter：{counter}</h3>
             <button onClick={() => dispatch(increment1())}>+1</button>
