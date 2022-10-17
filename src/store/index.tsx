@@ -7,7 +7,7 @@
          https://react-redux.js.org/tutorials/quick-start
 */
 
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 
 import counter from './couter'
 import flag from './flag'
@@ -21,3 +21,11 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+
+// 异步第二种写法的类型，flag/index.tsx
+export type AppThunk<ReturnType = void> = ThunkAction<
+    ReturnType,
+    RootState,
+    unknown,
+    Action<string>
+>;

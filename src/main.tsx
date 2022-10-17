@@ -8,10 +8,10 @@ import '@/assets/css/reset.less'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <BrowserRouter>
-    <React.StrictMode>
-      <Provider store={store}>
+    <Provider store={store}>
+      <React.StrictMode>
         <App />
-      </Provider>
-    </React.StrictMode>
+      </React.StrictMode>
+    </Provider>
   </BrowserRouter>
 )

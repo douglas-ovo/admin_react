@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from '@/store'
-import { changeFlag, getUser } from '@/store/flag'
+import type { RootState, AppThunk } from '@/store'
+import { changeFlag, changeFlagAsync } from '@/store/flag'
 
 export interface CounterState {
     value: number,
@@ -12,19 +12,20 @@ const initialState: CounterState = {
     value: 0,
     loading: 'idle'
 }
+
 /* createAsyncThunk
 第一个参数：action 对象的 type 属性
 第二个参数：函数作用执行异步操作
     第一个参数是 payload 
     第二个参数是 thunkAPI ，可以通过 thunkAPI 对象拿到 dispatch 方法 
 */
-export const getData = createAsyncThunk('getData', async (params: any, thunkAPI) => {
+export const incrementAsync = createAsyncThunk('incrementAsync', async (params: any, thunkAPI) => {
     // console.log(params, thunkAPI);
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(params)
             // thunkAPI.dispatch(changeFlag(!(thunkAPI.getState() as RootState).flag.value))
-            // thunkAPI.dispatch(getUser(true))
+            thunkAPI.dispatch(changeFlagAsync(true) as any)
         }, 2000)
     })
 }
@@ -45,14 +46,14 @@ export const counter = createSlice({
         }
     },
     extraReducers: bulider => {
-        bulider.addCase(getData.pending, (state, action) => {
+        bulider.addCase(incrementAsync.pending, (state, action) => {
             state.loading = 'pending'
         })
-        bulider.addCase(getData.fulfilled, (state, { payload }: any) => {
+        bulider.addCase(incrementAsync.fulfilled, (state, { payload }: any) => {
             state.value = payload
             state.loading = 'fullfilled'
         })
-        bulider.addCase(getData.rejected, (state, action) => {
+        bulider.addCase(incrementAsync.rejected, (state, action) => {
             state.loading = 'failer'
         })
     }
