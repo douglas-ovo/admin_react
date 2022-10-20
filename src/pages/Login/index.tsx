@@ -4,15 +4,16 @@
 // import { changeFlag, changeFlagAsync } from '@/store/flag'
 import React, { FC, useRef, useEffect } from 'react'
 import style from './index.module.less'
-import { Button } from 'antd'
+import { Button, Form, Input, message } from 'antd'
+import { useNavigate } from 'react-router-dom'
 
 const Login: FC<{}> = () => {
     // const counter = useAppSelector((state: RootState) => state.counter.value)
     // const flag = useAppSelector((state: RootState) => state.flag.value)
     // const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const renderRef = useRef(true)
-
     useEffect(() => {
         if (renderRef.current) { //防止钩子执行两次
             renderRef.current = false
@@ -21,10 +22,51 @@ const Login: FC<{}> = () => {
 
     }, [])
 
+    const onFinish = (values: any) => {
+        if (values) {
+            localStorage.setItem('userinfo', JSON.stringify(values))
+            message.success(`登录成功`);
+            navigate('/')
+        }
+    };
+
     return (
-        <div className={style.chart}>
-            <h2>登录</h2>
-            <Button>antd按钮</Button>
+        <div className={style.login}>
+            <div className={style['icon']}>
+                <img src="src/assets/img/react.svg" alt="" />
+                <img src="src/assets/img/vite.svg" alt="" />
+            </div>
+            <Form
+                className={style['form']}
+                name="basic"
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                autoComplete="off"
+            >
+                <Form.Item
+                    label="用  户"
+                    name="username"
+                    rules={[{ required: true, message: '请输入用户名' }]}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    label="密  码"
+                    name="password"
+                    rules={[{ required: true, message: '请输入用户密码' }]}
+                >
+                    <Input.Password />
+                </Form.Item>
+
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+                        登录
+                    </Button>
+                </Form.Item>
+            </Form>
             {/* <hr />
             <h3>counter：{counter}</h3>
             <button onClick={() => dispatch(increment1())}>+1</button>
