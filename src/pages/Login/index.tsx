@@ -6,6 +6,8 @@ import React, { FC, useRef, useEffect } from 'react'
 import style from './index.module.less'
 import { Button, Form, Input, message } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import react_svg from '@/assets/img/react.svg'
+import vite_svg from '@/assets/img/vite.svg'
 
 const Login: FC<{}> = () => {
     // const counter = useAppSelector((state: RootState) => state.counter.value)
@@ -33,8 +35,8 @@ const Login: FC<{}> = () => {
     return (
         <div className={style.login}>
             <div className={style['icon']}>
-                <img src="src/assets/img/react.svg" alt="" />
-                <img src="src/assets/img/vite.svg" alt="" />
+                <img src={react_svg} alt="" />
+                <img src={vite_svg} alt="" />
             </div>
             <Form
                 className={style['form']}
