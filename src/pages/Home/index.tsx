@@ -2,7 +2,7 @@ import React, { FC, useRef, useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import style from './index.module.less'
 import Header from '@/components/Header'
-import Menu from '@/components/Menu'
+import LeftMenu from '@/components/LeftMenu'
 
 const Home: FC<{}> = () => {
     const renderRef = useRef(true)
@@ -20,7 +20,7 @@ const Home: FC<{}> = () => {
         <div className={style.home}>
             <Header />
             <div className={style['main']}>
-                <Menu />
+                <LeftMenu />
                 <Outlet />
                 {/* {
                     state ? <div>显示</div> : <></>
