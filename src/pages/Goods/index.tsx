@@ -42,7 +42,7 @@ const Goods: FC<{}> = () => {
             <Button type="primary" danger onClick={() => dispatch(incrementAsync(step) as any)}>async+{step}</Button>
 
             <hr />
-            <h2>flag:{flag + ''}</h2>
+            <h2>flag：{flag + ''}</h2>
             <Button type="primary" onClick={() => dispatch(changeFlag(!flag))}>flag</Button>
             <Button onClick={() => dispatch(changeFlagAsync(!flag) as any)}>flagAsync写法一</Button>
             <Button type="primary" danger onClick={() => dispatch(changeFlagAsync(Boolean(!flag)))}>flagAsync写法二</Button>
