@@ -8,9 +8,9 @@ export default function LeftMenu() {
     const navigate = useNavigate()
 
     const items = [
-        { label: '图表', key: '/charts', icon: <PieChartOutlined style={{ fontSize: '18px' }} /> },
-        { label: '商品', key: '/goods', icon: <ShoppingOutlined style={{ fontSize: '18px' }} /> },
-        { label: '新闻', key: '/news', icon: <FileDoneOutlined style={{ fontSize: '18px' }} /> }
+        { label: '图表', key: '/charts', icon: <PieChartOutlined style={{ fontSize: '22px' }} /> },
+        { label: '商品', key: '/goods', icon: <ShoppingOutlined style={{ fontSize: '22px' }} /> },
+        { label: '新闻', key: '/news', icon: <FileDoneOutlined style={{ fontSize: '22px' }} /> }
     ];
 
     const itemClick = (e: any) => {

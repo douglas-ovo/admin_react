@@ -1,6 +1,7 @@
 import React, { FC, useRef, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import style from './index.module.less'
-import { Button, Slider } from 'antd'
+import { Button, Slider, Breadcrumb } from 'antd'
 import { useAppSelector, useAppDispatch } from '@/store/hook'
 import type { RootState } from '@/store'
 import { decrement1, incrementAsync, increment1 } from '@/store/counter'
@@ -8,6 +9,7 @@ import { changeFlag, changeFlagAsync } from '@/store/flag'
 
 const Goods: FC<{}> = () => {
     const renderRef = useRef(true)
+    const navigate = useNavigate()
     const counter = useAppSelector((state: RootState) => state.counter.value)
     const flag = useAppSelector((state: RootState) => state.flag.value)
     const dispatch = useAppDispatch()
@@ -27,6 +29,13 @@ const Goods: FC<{}> = () => {
 
     return (
         <div className={style.goods}>
+            <Breadcrumb>
+                <Breadcrumb.Item onClick={() => { navigate('/') }}>
+                    <a>home</a>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>goods</Breadcrumb.Item>
+            </Breadcrumb>
+
             <h2>counter：{counter}</h2>
             <div className={style.step}>
                 <h2>step：</h2>
