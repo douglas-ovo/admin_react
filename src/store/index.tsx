@@ -9,7 +9,7 @@
 
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 
-import counter from './couter'
+import counter from './counter'
 import flag from './flag'
 
 export const store = configureStore({

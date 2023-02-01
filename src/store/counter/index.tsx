@@ -19,13 +19,17 @@ const initialState: CounterState = {
     第一个参数是 payload 
     第二个参数是 thunkAPI ，可以通过 thunkAPI 对象拿到 dispatch 方法 
 */
+//需要改其他slice中的值
 export const incrementAsync = createAsyncThunk('incrementAsync', async (params: any, thunkAPI) => {
     // console.log(params, thunkAPI);
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve(params)
+            //操作counter
+            resolve(params + (thunkAPI.getState() as RootState).counter.value)
+
+            //操作flag
             // thunkAPI.dispatch(changeFlag(!(thunkAPI.getState() as RootState).flag.value))
-            thunkAPI.dispatch(changeFlagAsync(true) as any)
+            // thunkAPI.dispatch(changeFlagAsync(true) as any)
         }, 2000)
     })
 }
@@ -35,15 +39,15 @@ export const counter = createSlice({
     name: 'counter',
     initialState,
     reducers: {
-        increment1: (state) => {
-            state.value += 1
+        increment1: (state, { payload }) => {
+            state.value += payload
         },
-        decrement1: (state) => {
-            state.value -= 1
+        decrement1: (state, { payload }) => {
+            state.value -= payload
         },
-        incrementx: (state, action: PayloadAction<number>) => {
-            state.value += action.payload
-        }
+        // incrementx: (state, action: PayloadAction<number>) => {
+        //     state.value += action.payload
+        // }
     },
     extraReducers: bulider => {
         bulider.addCase(incrementAsync.pending, (state, action) => {
@@ -54,13 +58,13 @@ export const counter = createSlice({
             state.loading = 'fullfilled'
         })
         bulider.addCase(incrementAsync.rejected, (state, action) => {
-            state.loading = 'failer'
+            state.loading = 'failure'
         })
     }
 })
 
-export const { increment1, incrementx, decrement1 } = counter.actions
+export const { increment1, decrement1 } = counter.actions
 
-// export const couter = (state: RootState) => state.counter.value
+// export const counter = (state: RootState) => state.counter.value
 
 export default counter.reducer

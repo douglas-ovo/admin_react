@@ -1,7 +1,3 @@
-// import { useAppSelector, useAppDispatch } from '@/store/hook'
-// import type { RootState } from '@/store'
-// import { decrement1, incrementAsync, increment1, incrementx } from '@/store/couter'
-// import { changeFlag, changeFlagAsync } from '@/store/flag'
 import React, { FC, useRef, useEffect } from 'react'
 import style from './index.module.less'
 import { Button, Form, Input, message } from 'antd'
@@ -10,9 +6,6 @@ import react_svg from '@/assets/img/react.svg'
 import vite_svg from '@/assets/img/vite.svg'
 
 const Login: FC<{}> = () => {
-    // const counter = useAppSelector((state: RootState) => state.counter.value)
-    // const flag = useAppSelector((state: RootState) => state.flag.value)
-    // const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
     const renderRef = useRef(true)
@@ -69,17 +62,6 @@ const Login: FC<{}> = () => {
                     </Button>
                 </Form.Item>
             </Form>
-            {/* <hr />
-            <h3>counter：{counter}</h3>
-            <button onClick={() => dispatch(increment1())}>+1</button>
-            <button onClick={() => dispatch(decrement1())}>-1</button>
-            <button onClick={() => dispatch(incrementx(5))}>+5</button>
-            <button onClick={() => dispatch(incrementAsync(100) as any)}>async</button>
-            <hr />
-            <h3>flag:{flag + ''}</h3>
-            <button onClick={() => dispatch(changeFlag(!flag))}>flag</button>
-            <button onClick={() => dispatch(changeFlagAsync(!flag) as any)}>flagAsync</button>
-            <button onClick={() => dispatch(changeFlagAsync(Boolean(!flag)))}>flagAsync</button> */}
         </div>
     )
 }

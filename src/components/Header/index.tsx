@@ -28,7 +28,7 @@ export default function Header() {
             <div className={s['appname']}>
                 <img src={react_svg} alt="" />
                 <img src={vite_svg} alt="" />
-                <span>oo平台</span>
+                <span>OVO平台</span>
             </div>
             <Dropdown overlay={menu} placement="bottomLeft" arrow>
                 <div className={s.avatar}>

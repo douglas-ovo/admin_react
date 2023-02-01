@@ -1,5 +1,6 @@
 import React, { FC, useRef, useEffect } from 'react'
 import style from './index.module.less'
+import { Button } from 'antd'
 
 const News: FC<{}> = () => {
     const renderRef = useRef(true)
@@ -13,8 +14,9 @@ const News: FC<{}> = () => {
     }, [])
 
     return (
-        <div className={style.chart}>
-          news
+        <div className={style.news}>
+            news
+            <Button>测试</Button>
         </div>
     )
 }

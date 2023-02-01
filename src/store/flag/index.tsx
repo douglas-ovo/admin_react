@@ -9,6 +9,7 @@ const initialState: CounterState = {
     value: false,
 }
 
+//只改自己
 export const changeFlagAsync = (params: boolean): AppThunk => (dispatch => {
     setTimeout(() => {
         dispatch(changeFlag(params))

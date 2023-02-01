@@ -19,7 +19,7 @@ export default function LeftMenu() {
 
     return (
         <div className={s['menu']}>
-            <Menu className={s['a-menu']} items={items} onClick={itemClick} defaultSelectedKeys={['/charts']} theme='dark' />
+            <Menu items={items} onClick={itemClick} defaultSelectedKeys={['/charts']} theme='dark' />
         </div>
     )
 }
