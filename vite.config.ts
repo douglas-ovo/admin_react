@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import vitePluginImp from 'vite-plugin-imp'
 import { visualizer } from 'rollup-plugin-visualizer'
+import { viteMockServe } from 'vite-plugin-mock'
+import { resolve as resolves } from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -20,6 +22,16 @@ export default defineConfig({
       open: true,  //注意这里要设置为true，否则无效
       gzipSize: true,
       brotliSize: true
+    }),
+    viteMockServe({
+      mockPath: "/mock/source", // 解析，路径可根据实际变动
+      localEnabled: false, // 开发环境
+      prodEnabled: true, // 生产环境设为true，也可以根据官方文档格式
+      injectCode:
+        ` import { setupProdMockServer } from '/mock';
+        setupProdMockServer(); `,
+      watchFiles: true, // 监听文件内容变更
+      injectFile: resolves("src/main.tsx"), // 在main.ts注册后需要在此处注入，否则可能报找不到setupProdMockServer的错误
     })
   ],
   css: {
