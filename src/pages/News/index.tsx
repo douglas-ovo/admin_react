@@ -18,14 +18,17 @@ const News: FC<{}> = () => {
     const renderRef = useRef(true)
     const navigate = useNavigate()
 
-    //useState更新延迟 博客：https://www.jb51.net/article/258217.htm
+    //useState更新延迟 博客：https://www.jb51.net/article/258217.htm;
+    //https://blog.csdn.net/qq_45488467/article/details/126229537
     //表单赋值 博客：https://www.jb51.net/article/198555.htm
 
     //表格相关
     const [newsList, setNewsList] = useState([])
-    const [page, setPage] = useState(1)
-    const [pageSize, setPageSize] = useState(10)
     const [total, setTotal] = useState(1)
+    const [page, setPage] = useState(1)
+    const pageRef = useRef<number>()
+    const [pageSize, setPageSize] = useState(10)
+    const pageSizeRef = useRef<number>()
 
     //当前操作行
     const [currentRow, setCurrentRow] = useState({})
@@ -43,18 +46,16 @@ const News: FC<{}> = () => {
     const [content, setContent] = useState('')
 
     const getNews = () => {
-        axios.get('/getnews.json', { params: { page: page, pageSize: pageSize } }).then(res => {
+        axios.get('/getnews.json', { params: { page: pageRef.current, pageSize: pageSizeRef.current } }).then(res => {
             setNewsList(res.data.result)
             setTotal(res.data.total)
         })
     }
     const pageChange: PaginationProps['onChange'] = (e) => {
         setPage(e)
-        getNews()
     }
     const pageSizeChange: PaginationProps['onShowSizeChange'] = (current, pageSize) => {
         setPageSize(pageSize)
-        getNews()
     }
     const rowEdit = (row: DataType) => {
         setCurrentRow(row)
@@ -133,8 +134,10 @@ const News: FC<{}> = () => {
             renderRef.current = false
             return
         }
+        pageRef.current = page
+        pageSizeRef.current = pageSize
         getNews()
-    })
+    }, [page, pageSize])
 
     return (
         <div className={style.news}>
