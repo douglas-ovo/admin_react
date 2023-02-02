@@ -81,13 +81,13 @@ const News: FC<{}> = () => {
             dataIndex: 'title',
             key: 'title',
             width: 250,
-            render: (text) => <a>{text}</a>,
+            render: (text, row) => <a onClick={() => navigate(`/newsdetail?id=${row.id}`)}>{text}</a>,
         },
         {
             title: '内容',
             dataIndex: 'content',
             key: 'content',
-            render: (text) => <a>{text}</a>,
+            render: (text, row) => <a onClick={() => navigate(`/newsdetail?id=${row.id}`)}>{text}</a>,
         },
         {
             title: '操作',

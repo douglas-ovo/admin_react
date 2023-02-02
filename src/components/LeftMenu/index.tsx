@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import s from './index.module.less'
 import { Menu } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { PieChartOutlined, ShoppingOutlined, FileDoneOutlined } from '@ant-design/icons';
 
 export default function LeftMenu() {
     const navigate = useNavigate()
+    const location = useLocation()
+    const renderRef = useRef(true)
 
     const items = [
         { label: '图表', key: '/charts', icon: <PieChartOutlined style={{ fontSize: '22px' }} /> },
@@ -17,9 +19,16 @@ export default function LeftMenu() {
         navigate(e.key)
     }
 
+    useEffect(() => {
+        if (renderRef.current) {
+            renderRef.current = false
+            return
+        }
+    })
+
     return (
         <div className={s['menu']}>
-            <Menu items={items} onClick={itemClick} defaultSelectedKeys={['/charts']} theme='dark' />
+            <Menu items={items} selectedKeys={[location.pathname]} onClick={itemClick} defaultSelectedKeys={['/charts']} theme='dark' />
         </div>
     )
 }

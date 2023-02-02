@@ -11,6 +11,7 @@ const Home = lazy(() => import('@/pages/Home'))
 const Charts = lazy(() => import('@/pages/Charts'))
 const Goods = lazy(() => import('@/pages/Goods'))
 const News = lazy(() => import('@/pages/News'))
+const NewsDetail = lazy(() => import('@/pages/NewsDetail'))
 
 const route: RouteObject[] = [
     {
@@ -41,6 +42,10 @@ const route: RouteObject[] = [
     {
         path: '/login',
         element: <Login />
+    },
+    {
+        path: '/newsdetail',
+        element: <NewsDetail />
     },
     {
         path: '',

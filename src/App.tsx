@@ -1,4 +1,4 @@
-import { useState, Suspense, FC } from 'react'
+import { useState, Suspense, FC, ReactElement } from 'react'
 import { useRoutes } from 'react-router-dom'
 import route from '@/route';
 import Loading from '@/components/Loading';

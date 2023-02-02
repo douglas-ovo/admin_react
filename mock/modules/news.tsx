@@ -93,6 +93,20 @@ export default [
         }
     },
     {
+        url: '/getnew.json',
+        method: 'get',
+        response(option: any) {
+            const { id } = option.query
+
+            let newsItem = news.find(item => item.id === parseInt(id))
+
+            return {
+                result: newsItem,
+                status: 200
+            }
+        }
+    },
+    {
         url: "/editnews.json",
         method: 'post',
         response(option: any) {
