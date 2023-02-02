@@ -1,6 +1,7 @@
 /*
 参考博客：https://blog.51cto.com/u_15652665/5330140 路由集中管理
 参考博客：https://blog.csdn.net/Svik_zy/article/details/126337429  路由鉴权
+参考博客：https://www.yht7.com/news/223229 路由的两种写法
 */
 import { lazy } from 'react'
 import { Navigate, RouteObject } from 'react-router-dom'
