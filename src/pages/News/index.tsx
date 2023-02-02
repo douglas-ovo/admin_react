@@ -1,7 +1,7 @@
 import React, { FC, useRef, useEffect, useState, ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 import style from './index.module.less'
-import { Button, Breadcrumb, Pagination, Table, Modal, Form, Input } from 'antd'
+import { Button, Breadcrumb, Pagination, Table, Modal, Form, Input, message } from 'antd'
 import type { PaginationProps, FormInstance, InputRef } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import axios from 'axios'
@@ -41,9 +41,7 @@ const News: FC<{}> = () => {
     const [deleteShow, setDeleteShow] = useState(false)
 
     //表单
-    let formDom: FormInstance
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
+    const formDom = useRef<FormInstance>(null)
 
     const getNews = () => {
         axios.get('/getnews.json', { params: { page: pageRef.current, pageSize: pageSizeRef.current } }).then(res => {
@@ -58,10 +56,12 @@ const News: FC<{}> = () => {
         setPageSize(pageSize)
     }
     const rowEdit = (row: DataType) => {
-        setCurrentRow(row)
         setEditshow(true)
-        setTitle(row.title)
-        setContent(row.content)
+        setIsEdit(true)
+        setCurrentRow(row)
+        setTimeout(() => {
+            (formDom.current as any).setFieldsValue({ ...row })
+        }, 0)
     }
     const rowDelete = (row: DataType) => {
         setCurrentRow(row)
@@ -102,8 +102,16 @@ const News: FC<{}> = () => {
         }
     ]
 
+    const handleAdd = () => {
+        setEditshow(true);
+        setIsEdit(false);
+        setTimeout(() => {
+            (formDom.current as any).resetFields()
+        }, 0)
+    }
+
     const onFinish = () => {
-        formDom.validateFields().then(values => {
+        (formDom.current as any).validateFields().then((values: any) => {
             let url, data
             if (isEdit) {
                 url = '/editnews.json'
@@ -113,18 +121,21 @@ const News: FC<{}> = () => {
                 data = { ...values }
             }
             axios.post(url, data).then(res => {
-                formDom.resetFields()
+                (formDom.current as any).resetFields()
+                message.success(res.data.message)
+
                 setTimeout(() => {
                     setEditshow(false)
                     getNews()
-                }, 200)
+                }, 0)
             })
-        }, err => { })
+        }, (err: Error) => { })
     }
 
     const onDelete = () => {
         axios.get('/deletenews.json', { params: { ids: (currentRow as DataType).id } }).then(res => {
             setDeleteShow(false)
+            message.success(res.data.message)
             getNews()
         })
     }
@@ -147,29 +158,27 @@ const News: FC<{}> = () => {
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>news</Breadcrumb.Item>
             </Breadcrumb>
-            <Button type="primary" style={{ marginBottom: '20px' }} onClick={() => { setEditshow(true); setIsEdit(false); formDom.resetFields() }}>添加新闻</Button>
+            <Button type="primary" style={{ marginBottom: '20px' }} onClick={handleAdd}>添加新闻</Button>
             <Table columns={columns} dataSource={newsList} pagination={false} rowKey={(row) => row.id} scroll={{ y: 500 }} />
             <Pagination current={page} pageSize={pageSize} total={total} onChange={pageChange} onShowSizeChange={pageSizeChange} showSizeChanger={true} />
 
-            <Modal title={isEdit ? '编辑新闻' : '添加新闻'} open={editshow} okText="确定" cancelText="取消" onOk={onFinish} onCancel={() => { setEditshow(false); formDom.resetFields() }}>
+            <Modal title={isEdit ? '编辑新闻' : '添加新闻'} open={editshow} okText="确定" cancelText="取消" onOk={onFinish} onCancel={() => { setEditshow(false); (formDom.current as any).resetFields() }}>
                 <Form labelCol={{ span: 4 }}
                     wrapperCol={{ span: 16 }}
-                    ref={(c: FormInstance) => formDom = c}>
+                    ref={formDom} >
                     <Form.Item
                         label="标题"
                         name="title"
                         rules={[{ required: true, message: '请输入标题' }]}
-                        initialValue={title}
                     >
-                        <Input value={title} onChange={(evt) => setTitle(evt.target.value)} />
+                        <Input />
                     </Form.Item>
                     <Form.Item
                         label="内容"
                         name="content"
                         rules={[{ required: true, message: '请输入内容' }]}
-                        initialValue={content}
                     >
-                        <TextArea value={content} onChange={(evt) => setContent(evt.target.value)} rows={4} maxLength={6} />
+                        <TextArea rows={4} maxLength={6} />
                     </Form.Item>
                 </Form>
             </Modal>

@@ -97,6 +97,7 @@ export default [
         method: 'post',
         response(option: any) {
             const { title, content, id } = option.body
+
             let newsItem = news.find(item => item.id === id)
             if (newsItem) {
                 newsItem.title = title
